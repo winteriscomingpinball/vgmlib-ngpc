@@ -2,7 +2,7 @@
 ; Written by winteriscoming
 ; Thanks to mic_ for sharing his VGM driver source code.
 ; Thanks to Ivan Mackintosh for writing the NGPC sound driver tutorial.
-; This driver would not be possible with their contributions.
+; This driver would not be possible without their contributions.
 
 .MEMORYMAP
 	DEFAULTSLOT 0
