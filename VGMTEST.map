@@ -1,0 +1,232 @@
+(C)Copyright TOSHIBA CORPORATION 1993-2009  All rights reserved
+
+Tue Feb 08 15:18:38 2022
+
+Toshiba Unified Linker (32) V2.0p     [Page     1]     VGMTEST.map
+Runtime option : E:\ngpcdev\T900\BIN\TULINK.EXE -la -o VGMTEST.abs ngpc.lcf system.lib C900ML.LIB main.rel library.rel 
+
+  Command file : ngpc.lcf
+    memory
+    {
+    	io(RW)	: org=0x000000, len=0x000100
+    	ram(RW)	: org=0x004000, len=0x002C00
+    	rom(RX)	: org=0x200000, len=0x200000
+    }
+    
+    sections
+    {
+    	far_area	org=0x004000								: {*(f_area)}
+    	far_startup	org=0x200000								: {*(f_header)}
+    	far_const	org=org(far_startup)+sizeof(far_startup)		: {*(f_const)}
+    	far_code	org=org(far_const)+sizeof(far_const)	: {*(f_code)}
+    	far_data	org=org(far_code)+sizeof(far_code)
+    				addr=org(far_area)+sizeof(far_area)			: {*(f_data)}
+    	__DataRAM = addr(far_data);
+    }
+
+  Input files (modules)
+    main.rel (main_c)
+    library.rel (library_c)
+
+  Link map
+    Memory     Out-sec    Attri   Base       Length     In-sec(In-file)        Information
+    ---------- ---------- ------- ---------- ---------- ---------------------- ---------------
+    io                                     0        100                        *** Gap ***
+    ram        far_area   DATA          4000          8 f_area  (main.rel)     NORMAL
+    ram        far_area   DATA          4008          A f_area  (library.rel)  NORMAL
+    ram                                 4012       2BEE                        *** Gap ***
+    rom        far_const  ROMDATA     200000       394C f_const (main.rel)     NORMAL
+    rom        far_const  ROMDATA     20394C       15AC f_const (library.rel)  NORMAL
+    rom        far_code   CODE        204EF8        61B f_code  (main.rel)     NORMAL
+    rom        far_code   CODE        205513        C7E f_code  (library.rel)  NORMAL
+    rom                               206191          1                        *** Gap ***
+    rom        far_data   DATA        206192         2C f_data  (main.rel)     NORMAL
+    rom                               2061BE     1F9E42                        *** Gap ***
+
+  Symbol table for VGMTEST.abs
+      Symbol       Address  In-sec   Cross-reference
+      ------------ -------- -------- --------------------------------------
+    Input module : main_c
+      _CartID        200020 f_const  
+      _CartTitle     200024 f_const  
+      _Licensed      200000 f_const  
+      _Reserved      200030 f_const  
+      _SOUND_OFF     200492 f_const  
+      _System        200022 f_const  
+      _VGM_InstallSoundDriver
+                     205279 f_code   
+      _VGM_PlayBGM   2051D5 f_code   
+      _VGM_PlayBGM_Loop
+                     205235 f_code   
+      _VGM_PlayBGM_X_Times
+                     205213 f_code   
+      _VGM_PlaySFX   205194 f_code   
+      _VGM_RestoreSoundDriver
+                     2052E9 f_code   
+      _VGM_ResumeBGM
+                     205272 f_code   
+      _VGM_SendData
+                     204F06 f_code   
+      _VGM_StopBGM   205255 f_code   
+      _bgm_header_offset
+                       402E f_data   
+      _bgm_limited_play
+                       4034 f_data   
+      _bgm_loop_offset
+                       4016 f_data   
+      _bgm_play_count
+                       4032 f_data   
+      _bgm_play_counter
+                       4036 f_data   
+      _controls        4012 f_data   
+      _currentSFX      4004 f_area   
+      _currentSong     4000 f_area   
+      _driver_restored
+                       403C f_data   
+      _driver_start_pos
+                       4038 f_data   
+      _driver_transfer_count
+                       403A f_data   
+      _explode_tuned
+                     20384C f_const  
+      _explode_tuned_loop_point
+                     203848 f_const  
+      _main          205358 f_code   
+      _myVBL         20532F f_code   
+      _play_bgm        402C f_data   
+      _play_sfx        402A f_data   
+      _ptr           20001C f_const  
+      _sfx_header_offset
+                       4030 f_data   
+      _shoot_tuned   2038A4 f_const  
+      _shoot_tuned_loop_point
+                     2038A0 f_const  
+      _test1_tuned   200658 f_const  
+      _test1_tuned_loop_point
+                     200654 f_const  
+      _test3_tuned   2004B6 f_const  
+      _test3_tuned_loop_point
+                     2004B2 f_const  
+      _vgm_bgm_pause_timer
+                       4022 f_data   
+      _vgm_readpos_end
+                       401E f_data   
+      _vgm_readpos_end_sfx
+                       4026 f_data   
+      _vgm_readpos_start
+                       401A f_data   
+      _vgm_readpos_start_sfx
+                       4024 f_data   
+      _vgm_sfx_pause_timer
+                       4028 f_data   
+      _vgmdriver     200040 f_const  
+      _waitTime      204EF8 f_code   
+      _zeros         2004A0 f_const  
+    Input module : library_c
+      _BitmapMask    204E98 f_const  
+      _BitmapNewMask
+                     204EA8 f_const  
+      _BlockCopy     205B61 f_code   main_c   
+      _BlockCopyu16
+                     205B81 f_code   
+      _ClearScreen   2055FE f_code   main_c   
+      _CopyBitmap    205F48 f_code   
+      _Cos           205CD1 f_code   
+      _CpuSpeed      205D4C f_code   
+      _CreateBitmap
+                     205E1D f_code   
+      _DayNames      20439C f_const  
+      _DrawBitmap    205FB5 f_code   
+      _DrawLine      206022 f_code   
+      _DrawLineHorizontal
+                     206156 f_code   
+      _DrawLineVertical
+                     20611B f_code   
+      _DummyFunction
+                     205513 f_code   
+      _GetRandom     205C66 f_code   
+      _GetTile       2056C9 f_code   
+      _GetTime       205CE4 f_code   
+      _InitNGPC      205550 f_code   main_c   
+      _InitialiseQRandom
+                     205CA3 f_code   
+      _InstallSoundDriver
+                     205BA1 f_code   
+      _InstallSounds
+                     205BC5 f_code   
+      _InstallTileSet
+                     2057E6 f_code   
+      _InstallTileSetAt
+                     20580A f_code   
+      _Multiply32bit
+                     205C4A f_code   
+      _NeoTracker_Driver
+                     2043E2 f_const  
+      _NeoTracker_InstallDriver
+                     205D70 f_code   
+      _NeoTracker_PlayMusic
+                     205DF6 f_code   
+      _NeoTracker_PlaySFX
+                     205E06 f_code   
+      _NeoTracker_SendGroup
+                     205DA6 f_code   
+      _NeoTracker_StopAll
+                     205E16 f_code   
+      _OffsetValues
+                     204EE8 f_const  
+      _PlaySound     205C27 f_code   
+      _PrintDecimal
+                     205735 f_code   main_c   
+      _PrintHex      205788 f_code   
+      _PrintString   205849 f_code   main_c   
+      _PutBitmapTile
+                     205F18 f_code   
+      _PutTile       20568C f_code   
+      _QRandom       205CAA f_code   
+      _QuickRandomNumbers
+                     203E9C f_const  
+      _QuickSetPixel
+                     205EC8 f_code   
+      _RAND_RandomData
+                       400E f_area   
+      _RandomNumberCounter
+                       400A f_area   
+      _ResumeOff     205D69 f_code   
+      _SFXDriver_Z80
+                     20394C f_const  
+      _SFXInstalled
+                       400C f_area   
+      _SeedRandom    205C35 f_code   
+      _SetAlarm      205D26 f_code   
+      _SetBackgroundColour
+                     20583C f_code   main_c   
+      _SetPalette    205627 f_code   main_c   
+      _SetPixel      205E65 f_code   
+      _SetPlanePosition
+                     205B32 f_code   
+      _SetSprite     2058AE f_code   
+      _SetSpriteFlip
+                     20594C f_code   
+      _SetSpriteFlipChain
+                     205971 f_code   
+      _SetSpriteHFlipBlock
+                     205A47 f_code   
+      _SetSpritePosition
+                     20592D f_code   
+      _SetSpriteTile
+                     2058FF f_code   
+      _SetWake       205D00 f_code   
+      _Sin           205CC1 f_code   
+      _SineTable256
+                     20429C f_const  
+      _Sleep         20571D f_code   
+      _StopAllSound
+                     205C2F f_code   
+      _SysSetSystemFont
+                     2055E5 f_code   main_c   
+      _SysShutdown   2055CF f_code   main_c   
+      _VBCounter       4008 f_area   
+      _VBInterrupt   205514 f_code   
+      _memcpy16      205B55 f_code   
+
+Linker end,No error
